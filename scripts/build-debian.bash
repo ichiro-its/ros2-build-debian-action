@@ -4,7 +4,7 @@ OUTPUT_DIR="$2"
 ROOT_DIR=$(pwd)
 
 # Generate changelogs
-catkin_generate_changelog --all
+catkin_generate_changelog --all || true
 
 # Do for each ROS 2 packages path
 for PACKAGE in $(colcon list | cut -f2)
@@ -25,6 +25,6 @@ do
 
   # Move build result to the output directory
   mkdir -p $ROOT_DIR/package &&
-    mv ../*.deb $ROOT_DIR/$OUTPUT_DIR
-    mv ../*.ddeb $ROOT_DIR/$OUTPUT_DIR
+    mv ../*.deb $ROOT_DIR/$OUTPUT_DIR &&
+    mv ../*.ddeb $ROOT_DIR/$OUTPUT_DIR || true
 done
