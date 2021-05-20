@@ -8,9 +8,10 @@ jobs:
   action-test:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-20.04]
-        ros2-distro: [foxy]
+        ros2-distro: [foxy, rolling]
     steps:
       - name: Checkout this repository
         uses: actions/checkout@v2.3.4
