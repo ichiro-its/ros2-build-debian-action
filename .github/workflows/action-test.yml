@@ -12,8 +12,20 @@ jobs:
         os: [ubuntu-20.04]
         ros2-distro: [foxy, rolling]
     steps:
-      - name: Checkout
+      - name: Checkout this repository
         uses: actions/checkout@v2.3.4
+
+      - name: Checkout ROS 2 examples
+        uses: actions/checkout@v2.3.4
+        with:
+          repository: ros2/examples
+          path: examples
+
+      - name: Checkout ROS 2 examples on foxy branch
+        if: ${{ matrix.ros2-distro == 'foxy' }}
+        run: git checkout foxy
+        working-directory: examples
+
       - name: Test the action
         uses: ./
         with:
