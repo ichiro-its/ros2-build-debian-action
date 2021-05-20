@@ -12,5 +12,9 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - run: bash ${{ github.action_path }}/scripts/setup-dependencies.bash ${{ inputs.ros2-distro }}
+    - name: Setup dependencies
+      run: bash ${{ github.action_path }}/scripts/setup-dependencies.bash ${{ inputs.ros2-distro }}
+      shell: bash
+    - name: Build Debian packages
+      run: bash ${{ github.action_path }}/scripts/build-debian.bash ${{ inputs.ros2-distro }}
       shell: bash
