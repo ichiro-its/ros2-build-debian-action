@@ -22,5 +22,7 @@ do
   sudo dpkg --install ../*.deb || continue
 
   # Move build result to the output directory
-  mkdir -p $ROOT_DIR/package && mv ../*.deb $ROOT_DIR/package
+  mkdir -p $ROOT_DIR/package &&
+    mv ../*.deb $ROOT_DIR/package
+    mv ../*.ddeb $ROOT_DIR/package
 done
