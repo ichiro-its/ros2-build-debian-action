@@ -12,5 +12,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - run: echo 'using ROS 2 ${{ inputs.ros2-distro }}.'
+    - run: export ROS2_DISTRO=${{ inputs.ros2-distro }}
+      shell: bash
+    - run: bash ${{ github.action_path }}/scripts/setup-dependencies.bash
       shell: bash
