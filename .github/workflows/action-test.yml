@@ -31,3 +31,9 @@ jobs:
         uses: ./
         with:
           ros2-distro: ${{ matrix.ros2-distro }}
+
+      - name: Upload build result
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: Package
+          path: package
