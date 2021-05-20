@@ -8,6 +8,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 
 # Install required tools
 sudo apt update && sudo apt install -y \
+  debhelper \
   python3-bloom \
   python3-catkin-pkg \
   python3-colcon-common-extensions \
