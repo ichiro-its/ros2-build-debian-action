@@ -12,6 +12,8 @@ jobs:
         os: [ubuntu-20.04]
         ros2-distro: [foxy, rolling]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
       - name: Test the action
         uses: ./
         with:
