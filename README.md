@@ -46,3 +46,7 @@ jobs:
   with:
     output-dir: output
 ```
+
+## License
+
+This project is maintained by [ICHIRO ITS](https://github.com/ichiro-its) and licensed under the [MIT License](./LICENSE).
