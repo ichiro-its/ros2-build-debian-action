@@ -33,6 +33,12 @@ jobs:
         run: git checkout ${{ matrix.ros2-distro }}
         working-directory: examples
 
+      - name: Only test some packages
+        run: |
+          mv examples/rclcpp/topics .
+          mv examples/rclpy/topics .
+          rm -r examples
+
       - name: Test the action
         uses: ./
         with:
