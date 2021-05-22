@@ -36,9 +36,11 @@ jobs:
       - name: Only test some packages
         run: |
           ls . && ls examples
-          mv examples/rclcpp/topics .
-          mv examples/rclpy/topics .
-          rm -r examples
+          mv examples/rclcpp/topics cpptopics || true
+          mv examples/rclcpp/minimal_publisher . || true
+          mv examples/rclcpp/minimal_subscriber . || true
+          mv examples/rclpy/topics pytopics || true
+          rm -r examples || true
 
       - name: Test the action
         uses: ./
