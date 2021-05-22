@@ -35,6 +35,7 @@ jobs:
 
       - name: Only test some packages
         run: |
+          ls . && ls examples
           mv examples/rclcpp/topics .
           mv examples/rclpy/topics .
           rm -r examples
