@@ -78,4 +78,4 @@ jobs:
           output-dir: output
 
       - name: Test output directory
-        run: test $(ls -1 ros2-build-deb-action | wc -l) -gt 0
+        run: test $(ls -1 output | wc -l) -gt 0
