@@ -13,6 +13,10 @@ inputs:
     description: 'The output directory of build results.'
     required: false
     default: 'package'
+  unique-version:
+    description: 'Make the package version unique by using a timestamp for the Debian revision number.'
+    required: false
+    default: 'false'
 runs:
   using: 'composite'
   steps:
@@ -20,5 +24,5 @@ runs:
       run: bash ${{ github.action_path }}/scripts/setup-dependencies.bash ${{ inputs.ros2-distro }}
       shell: bash
     - name: Build Debian packages
-      run: bash ${{ github.action_path }}/scripts/build-debian.bash ${{ inputs.ros2-distro }} ${{ inputs.output-dir }}
+      run: bash ${{ github.action_path }}/scripts/build-debian.bash ${{ inputs.ros2-distro }} ${{ inputs.output-dir }} ${{ inputs.unique-version }}
       shell: bash

@@ -1,5 +1,6 @@
 ROS2_DISTRO="$1"
 OUTPUT_DIR="$2"
+UNIQUE_VERSION="$3"
 
 ROOT_DIR=$(pwd)
 
@@ -15,7 +16,12 @@ do
   source /opt/ros/$ROS2_DISTRO/setup.bash || continue
 
   # Generate Debian rules
-  bloom-generate rosdebian --ros-distro "$ROS2_DISTRO" || continue
+  if [ "$UNIQUE_VERSION" == "false" ]
+  then
+    bloom-generate rosdebian --ros-distro "$ROS2_DISTRO" || continue
+  else
+    bloom-generate rosdebian --ros-distro "$ROS2_DISTRO" -i $(date +%s) || continue
+  fi
 
   # Build package using fakeroot
   fakeroot debian/rules binary || continue
@@ -24,7 +30,7 @@ do
   sudo dpkg --install ../*.deb || continue
 
   # Move build result to the output directory
-  mkdir -p $ROOT_DIR/package &&
+  mkdir -p $ROOT_DIR/$OUTPUT_DIR &&
     mv ../*.deb $ROOT_DIR/$OUTPUT_DIR &&
     mv ../*.ddeb $ROOT_DIR/$OUTPUT_DIR || true
 done

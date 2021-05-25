@@ -33,6 +33,14 @@ jobs:
         run: git checkout ${{ matrix.ros2-distro }}
         working-directory: examples
 
+      - name: Only test some packages
+        run: |
+          mv examples/rclcpp/topics cpptopics || true
+          mv examples/rclcpp/minimal_publisher . || true
+          mv examples/rclcpp/minimal_subscriber . || true
+          mv examples/rclpy/topics pytopics || true
+          rm -r examples || true
+
       - name: Test the action
         uses: ./
         with:
@@ -43,3 +51,64 @@ jobs:
         with:
           name: Package
           path: package
+
+  action-test-with-output-dir:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v2.3.4
+
+      - name: Checkout ROS 2 examples on foxy branch
+        uses: actions/checkout@v2.3.4
+        with:
+          repository: ros2/examples
+          ref: foxy
+          path: examples
+
+      - name: Only test some packages
+        run: |
+          mv examples/rclcpp/topics cpptopics || true
+          mv examples/rclpy/topics pytopics || true
+          rm -r examples || true
+
+      - name: Test the action with output directory
+        uses: ./
+        with:
+          ros2-distro: foxy
+          output-dir: output
+
+      - name: Test output directory
+        run: test $(ls -1 output | wc -l) -eq 6
+
+  action-test-with-unique-version:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v2.3.4
+
+      - name: Checkout ROS 2 examples on foxy branch
+        uses: actions/checkout@v2.3.4
+        with:
+          repository: ros2/examples
+          ref: foxy
+          path: examples
+
+      - name: Only test some packages
+        run: |
+          mv examples/rclcpp/topics cpptopics || true
+          mv examples/rclpy/topics pytopics || true
+          rm -r examples || true
+
+      - name: Test the action with unique version
+        uses: ./
+        with:
+          ros2-distro: foxy
+          unique-version: true
+
+      - name: Test unique version
+        run: |
+          (for PACKAGE in $(ls)
+          do
+            test "$(dpkg -f $PACKAGE Version)" != '0.9.4-0focal' || exit $?
+          done)
+        working-directory: package
