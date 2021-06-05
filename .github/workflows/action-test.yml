@@ -16,6 +16,8 @@ jobs:
           - os: ubuntu-20.04
             ros2-distro: foxy
           - os: ubuntu-20.04
+            ros2-distro: galactic
+          - os: ubuntu-20.04
             ros2-distro: rolling
             experimental: true
     steps:
