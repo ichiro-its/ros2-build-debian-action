@@ -13,18 +13,18 @@ do
   cd $ROOT_DIR/$PACKAGE || continue
 
   # Source ROS 2 environment
-  source /opt/ros/$ROS2_DISTRO/setup.bash || continue
+  source /opt/ros/$ROS2_DISTRO/setup.bash || exit $?
 
   # Generate Debian rules
   if [ "$UNIQUE_VERSION" == "false" ]
   then
-    bloom-generate rosdebian --ros-distro "$ROS2_DISTRO" || continue
+    bloom-generate rosdebian --ros-distro "$ROS2_DISTRO" || exit $?
   else
-    bloom-generate rosdebian --ros-distro "$ROS2_DISTRO" -i $(date +%s) || continue
+    bloom-generate rosdebian --ros-distro "$ROS2_DISTRO" -i $(date +%s) || exit $?
   fi
 
   # Build package using fakeroot
-  fakeroot debian/rules binary || continue
+  fakeroot debian/rules binary || exit $?
 
   # Install all build result
   sudo dpkg --install ../*.deb || continue
