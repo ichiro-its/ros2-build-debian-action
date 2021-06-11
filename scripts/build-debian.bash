@@ -24,7 +24,7 @@ do
   fi
 
   # Build package using fakeroot
-  fakeroot debian/rules binary || exit $?
+  fakeroot debian/rules binary -j8 || exit $?
 
   # Install all build result
   sudo dpkg --install ../*.deb || continue
