@@ -8,7 +8,7 @@ ROOT_DIR=$(pwd)
 catkin_generate_changelog --all || true
 
 # Do for each ROS 2 packages path
-for PACKAGE in $(colcon list | cut -f2)
+for PACKAGE in $(colcon list -t | cut -f2)
 do
   cd $ROOT_DIR/$PACKAGE || continue
 
