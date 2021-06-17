@@ -12,6 +12,9 @@ for PACKAGE in $(colcon list -t | cut -f2)
 do
   cd $ROOT_DIR/$PACKAGE || continue
 
+  # Install required dependencies
+  rosdep install -y --rosdistro "$ROS2_DISTRO" --from-paths . || exit $?
+
   # Source ROS 2 environment
   source /opt/ros/$ROS2_DISTRO/setup.bash || exit $?
 
