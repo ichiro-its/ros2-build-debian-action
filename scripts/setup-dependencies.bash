@@ -16,8 +16,6 @@ sudo apt update && sudo apt install -y \
   python3-rosdep \
   fakeroot || exit $?
 
-# Initialize rosdep
+# Initialize and update rosdep
 sudo rosdep init || true
-
-# Install ROS 2 project dependencies
-rosdep update && rosdep install -y --rosdistro "$ROS2_DISTRO" --from-paths . || exit $?
+rosdep update || exit $?
