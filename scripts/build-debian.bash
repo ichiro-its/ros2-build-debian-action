@@ -35,5 +35,5 @@ do
   # Move build result to the output directory
   mkdir -p $ROOT_DIR/$OUTPUT_DIR &&
     mv ../*.deb $ROOT_DIR/$OUTPUT_DIR &&
-    mv ../*.ddeb $ROOT_DIR/$OUTPUT_DIR || true
+    (mv ../*.ddeb $ROOT_DIR/$OUTPUT_DIR || true)
 done
